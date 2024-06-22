@@ -1,20 +1,22 @@
 ---
 layout: post
 title: Credit Card Fraud Detection Using ML
-image: "/posts/classification-title-img.png"
+image: "/posts/fraud-EMV-chip-credit-card.png"
 tags: [Fraud Detection, Machine Learning, Classification, Python]
 ---
 
 # Project Overview  <a name="overview-main"></a>
 
 ### Context <a name="overview-context"></a>
+
 Welcome to the Credit Card Fraud Detection Project! 
 Credit card fraud poses a major threat to both financial institutions and consumers. As online transactions become more prevalent, identifying fraudulent activities has become more complex. 
 
 Here, I created a fraud detection system using Python and widely-used machine learning libraries like scikit-learn. The primary goal was to build a robust fraud detection system using Random Forest, Logistic Regression, and Decision Tree classifiers. This project also addresses the class imbalance problem inherent in credit card fraud datasets.
 
-### Project Structure
-creditcard.csv: The dataset containing transaction details and fraud labels.
+### Project Structure <a name="Project-Structure"></a>
+
+creditcard.csv: The dataset containing transaction details and fraud labels (The dataset used in this project is available on Kaggle).
 Credit Card Fraud Detection.py: The main script containing data preprocessing, model training, evaluation, and model saving.
 credit_card_model.p: The serialized Random Forest model saved using pickle.## Import Libraries.
 
@@ -67,11 +69,30 @@ Based upon these, the chosen model is the Random Forest as it was the most consi
 * Decision Tree = 0.7
 
 <br>
+
+Handling Class Imbalance
+The project addresses class imbalance using:
+
+Undersampling: Reducing the majority class to balance the dataset.
+Oversampling: Using SMOTE (Synthetic Minority Over-sampling Technique) to generate synthetic samples for the minority class.
+
+I implemented both undersampling and oversampling techniques, but oversampling appears to be more favorable as it ensures no data is lost.
+
 <br>
 ___
 
-**Import Required Packagess.**
 
+### Modelling Overview  <a name="modelling-overview"></a>
+
+We built a model that looked to accurately predict fraud transaction.
+
+As we were predicting a binary output, we tested three classification modeling approaches, namely:
+
+* Logistic Regression
+* Decision Tree
+* Random Forest
+
+### Import Required Packagess
 
 ```python
 import numpy as np
@@ -90,7 +111,8 @@ from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import SMOTE
 ```
 
-## Get the Data
+### Get the Data
+
 ** Read the 'Creditcard.csv file into a dataframe **
 
 
@@ -98,18 +120,7 @@ from imblearn.over_sampling import SMOTE
 data = pd.read_csv("creditcard.csv")
 ```
 
-# Modelling Overview  <a name="modelling-overview"></a>
-
-We built a model that looked to accurately predict fraud transaction.
-
-As we were predicting a binary output, we tested three classification modeling approaches, namely:
-
-* Logistic Regression
-* Decision Tree
-* Random Forest
-
-
-**Data Preprocessing**
+### Data Preprocessing
 
 
 ```python
@@ -163,7 +174,7 @@ From the last step in the above code, I saw that **0.2% of the data were in clas
 
 <br>
 
-# Create Input and Output Variables
+### Create Input and Output Variables
 
 
 ```python
@@ -172,16 +183,16 @@ y = data['Class']
 ```
 
 
-# Train Test Split
+### Train Test Split
 
-**Use train_test_split to split your data into a training set and a testing set.**
+Train_test_split was used to split our data into a training set and a testing set.
 
 
 ```python
 X_train, X_test, y_train, y_test = train_test_split (X, y, test_size = 0.2, random_state = 42)
 ```
 
-# Model Training and Assessment
+### Model Training and Assessment
 
 Three classifiers were trained and evaluated:
 
@@ -226,165 +237,172 @@ for name, clf in classifier.items():
     print(f'\n F1_score: {f1}')
 ```
 
-**Fit this KNN model to the training data.**
+### Handling Class Imbalance
 
+The dataset includes two classes of data: class 1 represents fraudulent transactions, while class 0 represents normal transactions:
 
 ```python
-clf.fit(X_train, y_train)
+normal = data[data['Class']==0]
+fraud = data[data['Class']==1]
+
+normal.shape
+fraud.shape
 ```
 
-
-
-
-<style>#sk-container-id-7 {color: black;background-color: white;}#sk-container-id-7 pre{padding: 0;}#sk-container-id-7 div.sk-toggleable {background-color: white;}#sk-container-id-7 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-7 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-7 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-7 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-7 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-7 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-7 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-7 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-7 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-7 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-7 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-7 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-7 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-7 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-7 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-7 div.sk-item {position: relative;z-index: 1;}#sk-container-id-7 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-7 div.sk-item::before, #sk-container-id-7 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-7 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-7 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-7 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-7 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-7 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-7 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-7 div.sk-label-container {text-align: center;}#sk-container-id-7 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-7 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-7" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KNeighborsClassifier(n_neighbors=1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" checked><label for="sk-estimator-id-7" class="sk-toggleable__label sk-toggleable__label-arrow">KNeighborsClassifier</label><div class="sk-toggleable__content"><pre>KNeighborsClassifier(n_neighbors=1)</pre></div></div></div></div></div>
-
-
-
-# Predictions and Evaluations
-Let's evaluate our KNN model!
-
-**Use the predict method to predict values using your KNN model and X_test.**
-
+#### Undersampling
 
 ```python
-y_predict = clf.predict (X_test)
-```
+normal.sample = normal.sample(n=473)
 
-** Create a confusion matrix and classification report.**
+# Create new undersampled dataset
 
+new_data  = pd.concat([normal.sample, fraud], ignore_index=True)
 
-```python
-from sklearn.metrics import classification_report,confusion_matrix
-```
+new_data.head()
 
+new_data['Class'].value_counts()
 
-```python
-print(confusion_matrix(y_test, y_predict))
-```
+X = new_data.drop(['Class'], axis = 1)
+y = new_data['Class']
 
-    [[67 31]
-     [23 79]]
+X_train, X_test, y_train, y_test = train_test_split (X, y, test_size = 0.2, random_state = 42)
+
+classifier = {
+       'LogisticRegression': LogisticRegression(random_state = 42),
+       'DecisionTreeClassifier': DecisionTreeClassifier(random_state = 42),
+       'RandomForestClassifier': RandomForestClassifier(random_state = 42)}               
+
+for name, clf in classifier.items():
     
-
-
-```python
-print(classification_report(y_test, y_predict))
-```
-
-                  precision    recall  f1-score   support
+    print(f'\n==========={name}==========')
     
-               0       0.74      0.68      0.71        98
-               1       0.72      0.77      0.75       102
-    
-        accuracy                           0.73       200
-       macro avg       0.73      0.73      0.73       200
-    weighted avg       0.73      0.73      0.73       200
-    
-    
-
-# Choosing a K Value
-Let's go ahead and use the elbow method to pick a good K Value!
-
-** Create a for loop that trains various KNN models with different k values, then keep track of the error_rate for each of these models with a list. Refer to the lecture if you are confused on this step.**
-
-
-```python
-from sklearn.metrics import f1_score
-
-accuracy_scores = []
-k_list = list(range(1,40))
-
-for i in k_list:
-    clf = KNeighborsClassifier(n_neighbors=i)
     clf.fit(X_train, y_train)
-    y_predict_i = clf.predict(X_test)
-    accuracy = f1_score(y_test, y_predict_i)
-    accuracy_scores.append(accuracy)
+    y_pred_class = clf.predict(X_test)
+
+    # Accuracy (the number of correct classification out of all attempted classifications)
+    accuracy = accuracy_score(y_test, y_pred_class) 
+    print(f'\n Accuracy: {accuracy}')
+    
+    # Precision (of all observations that were predicted as positive, how many were actually positive)
+    precision = precision_score(y_test, y_pred_class)
+    print(f'\n Precision: {precision}')
+
+    # Recall (of all positive observations, how many did we predict as positive)
+    recall = recall_score(y_test, y_pred_class) 
+    print(f'\n Recall: {recall}')
+
+    # F1-Score (the harmonic mean of precision and recall)
+    f1 = f1_score(y_test, y_pred_class)
+    print(f'\n F1_score: {f1}')
 ```
 
-**Now create the following plot using the information from your for loop.**
-
+#### Oversampling
 
 ```python
-plt.figure(figsize=(10,6))
-plt.plot(range(1,40),accuracy_scores,color='blue', linestyle='dashed', marker='o',
-         markerfacecolor='red', markersize=10)
-plt.title('Accuracy Score vs. K Value')
-plt.xlabel('K')
-plt.ylabel('Accuracy Score')
+X = data.drop(['Class'], axis = 1)
+y = data['Class']
+
+X.shape
+y.shape
+
+X_res, y_res = SMOTE().fit_resample(X,y)
+
+y_res.value_counts()
+
+X_train, X_test, y_train, y_test = train_test_split (X_res, y_res, test_size = 0.2, random_state = 42)
+
+classifier = {
+       'LogisticRegression': LogisticRegression(random_state = 42),
+       'DecisionTreeClassifier': DecisionTreeClassifier(random_state = 42),
+       'RandomForestClassifier': RandomForestClassifier(random_state = 42)}              
+
+for name, clf in classifier.items():
+    
+    print(f'\n==========={name}==========')
+    
+    clf.fit(X_train, y_train)
+    y_pred_class = clf.predict(X_test)
+
+    # Accuracy (the number of correct classification out of all attempted classifications)
+    accuracy = accuracy_score(y_test, y_pred_class) 
+    print(f'\n Accuracy: {accuracy}')
+    
+    # Precision (of all observations that were predicted as positive, how many were actually positive)
+    precision = precision_score(y_test, y_pred_class)
+    print(f'\n Precision: {precision}')
+
+    # Recall (of all positive observations, how many did we predict as positive)
+    recall = recall_score(y_test, y_pred_class) 
+    print(f'\n Recall: {recall}')
+
+    # F1-Score (the harmonic mean of precision and recall)
+    f1 = f1_score(y_test, y_pred_class)
+    print(f'\n F1_score: {f1}')
 ```
+Running this code resulted in:
+
+<br>
+**Metric 1: Classification Accuracy**
+
+* Random Forest = 0.99
+* Decision Tree = 0.99
+* Logistic Regression = 0.95
+
+<br>
+**Metric 2: Precision**
+
+* Random Forest = 0.99
+* Decision Tree = 0.99
+* Logistic Regression = 0.97
 
 
+<br>
+**Metric 3: Recall**
+
+* Random Forest = 1
+* Decision Tree = 0.99
+* Logistic Regression = 0.92
+
+<br>
+**Metric 4: F1 Score**
+
+* Random Forest = 0.99
+* Decision Tree = 0.99
+* Logistic Regression = 0.94
+
+<br>
+
+These are all higher than what we saw without resampling! Random forest and decision tree offers very smilar metrics.
 
 
-    Text(0, 0.5, 'Accuracy Score')
-
-
-
-
-    
-![png](output_40_1.png)
-    
-
-
+### Save Model
 
 ```python
-max_accuracy = max(accuracy_scores)
-max_accuracy_idx = accuracy_scores.index(max_accuracy)
-optimal_k_value = k_list[max_accuracy_idx]
+rfc = RandomForestClassifier()
+rfc.fit(X_res, y_res)
+
+pickle.dump(rfc, open('Credit Card Fraud Detection/credit_card_model.p', 'wb'))   
 ```
 
+### Fraud Detection (Prediction)
+
+An example prediction is provided using the saved model to classify a new transaction.
 
 ```python
-plt.plot(k_list, accuracy_scores)
-plt.scatter(optimal_k_value, max_accuracy, marker = 'x', color = 'red')
-plt.title(f'Accuracy (F1 Score) by K \n Optimal value for K: {optimal_k_value} (Accuracy: {round(max_accuracy, 4)})')
-plt.xlabel('k')
-plt.ylabel('Accuracy (F1 Score)')
-plt.tight_layout()
-plt.show()
+model = pickle.load(open('Credit Card Fraud Detection/credit_card_model.p', 'rb'))         
+                 
+prediction = model.predict([[-1.3598071336738,-0.0727811733098497,2.53634673796914,1.37815522427443,-0.338320769942518,0.462387777762292,0.239598554061257,0.0986979012610507,0.363786969611213,0.0907941719789316,-0.551599533260813,-0.617800855762348,-0.991389847235408,-0.311169353699879,1.46817697209427,-0.470400525259478,0.207971241929242,0.0257905801985591,0.403992960255733,0.251412098239705,-0.018306777944153,0.277837575558899,-0.110473910188767,0.0669280749146731,0.128539358273528,-0.189114843888824,0.133558376740387,-0.0210530534538215,149.62]])                                                                     
+prediction[0]     
+
+if prediction[0]==0:
+    print ('Normal Transaction')
+else:
+    print ('Fraud Transaction')
 ```
+___
+<br>
 
+# Growth & Next Steps <a name="growth-next-steps"></a>
 
-    
-![png](output_42_0.png)
-    
+We could look to tune the hyperparameters of the Random Forest, notably regularisation parameters such as tree depth, as well as potentially training on a higher number of Decision Trees in the Random Forest.
 
-
-## Retrain with new K Value
-
-**Retrain your model with the best K value (up to you to decide what you want) and re-do the classification report and the confusion matrix.**
-
-
-```python
-clf = KNeighborsClassifier(n_neighbors=11)
-
-clf.fit(X_train,y_train)
-y_predict = clf.predict(X_test)
-
-print('WITH K=11')
-print('\n')
-print(confusion_matrix(y_test,y_predict))
-print('\n')
-print(classification_report(y_test,y_predict))
-```
-
-    WITH K=11
-    
-    
-    [[77 21]
-     [24 78]]
-    
-    
-                  precision    recall  f1-score   support
-    
-               0       0.76      0.79      0.77        98
-               1       0.79      0.76      0.78       102
-    
-        accuracy                           0.78       200
-       macro avg       0.78      0.78      0.77       200
-    weighted avg       0.78      0.78      0.78       200
-    
-    
-
-# Great Job!
