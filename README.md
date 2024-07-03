@@ -19,6 +19,7 @@ Here, I created a fraud detection system using Python and widely-used machine le
 creditcard.csv: The dataset containing transaction details and fraud labels (The dataset used in this project is available on Kaggle).
 <br>
 Credit Card Fraud Detection.py: The main script containing data preprocessing, model training, evaluation, and model saving.
+
 credit_card_model.p: The serialized Random Forest model saved using pickle.
 
 ## Import Libraries
