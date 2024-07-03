@@ -10,6 +10,7 @@ tags: [Fraud Detection, Machine Learning, Classification, Python]
 ### Context <a name="overview-context"></a>
 
 Welcome to the Credit Card Fraud Detection Project! 
+
 Credit card fraud poses a major threat to both financial institutions and consumers. As online transactions become more prevalent, identifying fraudulent activities has become more complex. 
 
 Here, I created a fraud detection system using Python and widely-used machine learning libraries like scikit-learn. The primary goal was to build a robust fraud detection system using Random Forest, Logistic Regression, and Decision Tree classifiers. This project also addresses the class imbalance problem inherent in credit card fraud datasets.
