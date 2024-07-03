@@ -22,8 +22,6 @@ Credit Card Fraud Detection.py: The main script containing data preprocessing, m
 
 credit_card_model.p: The serialized Random Forest model saved using pickle.
 
-## Import Libraries
-
 ### Actions <a name="overview-actions"></a>
 
 I first needed to compile the necessary data from tables in the database.
@@ -74,10 +72,12 @@ Based upon these, the chosen model is the Random Forest as it was the most consi
 
 <br>
 
-Handling Class Imbalance
+### Handling Class Imbalance
+
 The project addresses class imbalance using:
 
 Undersampling: Reducing the majority class to balance the dataset.
+
 Oversampling: Using SMOTE (Synthetic Minority Over-sampling Technique) to generate synthetic samples for the minority class.
 
 I implemented both undersampling and oversampling techniques, but oversampling appears to be more favorable as it ensures no data is lost.
